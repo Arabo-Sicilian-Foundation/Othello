@@ -1,7 +1,7 @@
 #ifndef JEUX_H
 #define JEUX_H
 
-#include "plateau.h"
+#include "arbre.h"
 
 void jeux_init(plateau p);
 
