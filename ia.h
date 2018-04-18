@@ -3,7 +3,7 @@
 
 #include "jeux.h"
 
-/* Renvoie 1 si l'ia a pu jouer et 0 sinon */
+/* Joue de manière aléatoire */
 void ia_aleatoire(plateau p);
 
 /* Crée une arbre des coups possibles et de leurs valeurs (profondeur 1)*/
