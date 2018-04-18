@@ -58,13 +58,13 @@ int main()
 	if(position_gagnante(p,BLANC))
 		ia_aleatoire(p);
 	   /* while(couleur == BLANC)
-	    {
+	      {*/
 			printf("\nBLANC\n");
-			scanf("%c %d",&y,&x);
+			/*scanf("%c %d",&y,&x);
 			if(coup_valide(p,x-1,y-97,BLANC))
-			{*/
+			{
 			    points = capture(p,x-1,y-97,BLANC);
-			    printf("%d\n",points);
+			    printf("%d\n",points);*/
 			    plateau_afficher(p);
 			    couleur = NOIR;
 			/*}
