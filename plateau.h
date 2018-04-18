@@ -9,9 +9,10 @@
 
 typedef int plateau[8][8];
 
-
+/*Crée un plateau totalement vide*/
 void plateau_init(plateau p);
 
+/*Affiche l'état actuel du plateau*/
 void plateau_afficher(plateau p);
 
 #endif
