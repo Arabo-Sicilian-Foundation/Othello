@@ -13,6 +13,7 @@ arbre creer_arbre_position(plateau p)
 	for(j=0;j<8;j++)
 	    a->position[i][j] = p[i][j];
     a->nb_fils = 0;
+    a->valeur_plateau = 0;
     a->tab_fils = NULL;
 
     return a;

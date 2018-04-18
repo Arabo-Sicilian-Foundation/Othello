@@ -34,4 +34,14 @@ void plateau_afficher(plateau p)
     fprintf(stdout,"   ---------------- \n");
     fprintf(stdout,"    A B C D E F G H \n");
 }
+
+void plateau_recopie(plateau p, plateau cp)
+{
+    int i,j;
+
+    for(i=0;i<8;i++)
+	for(j=0;j<8;j++)
+	    cp[i][j] = p[i][j];
+}
+
 #endif

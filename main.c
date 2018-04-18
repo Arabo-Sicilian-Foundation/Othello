@@ -1,7 +1,6 @@
 #ifndef MAIN_C
 #define MAIN_C
 
-#include "jeux.h"
 #include "ia.h"
 
 /*Vide l'entrée standard stdin*/
@@ -21,7 +20,8 @@ int main()
     char y = 1;
     int couleur;
     int points;
-
+    arbre a = arbre_vide();
+    
     /*Crée un plateau et l'initialise à la configuration de base*/
     plateau_init(p);
     jeux_init(p);
@@ -56,24 +56,30 @@ int main()
 	    }
 	viderBuffer();
 	if(position_gagnante(p,BLANC))
-		ia_aleatoire(p);
-	   /* while(couleur == BLANC)
-	      {*/
-			printf("\nBLANC\n");
-			/*scanf("%c %d",&y,&x);
-			if(coup_valide(p,x-1,y-97,BLANC))
-			{
-			    points = capture(p,x-1,y-97,BLANC);
-			    printf("%d\n",points);*/
-			    plateau_afficher(p);
-			    couleur = NOIR;
-			/*}
-			else
-			{
-			    viderBuffer();
-			    fprintf(stdout,"Coup invalide\n");
-			}
-		}
+	{
+	    printf("\nBLANC\n");
+	    a = ia_niveau1(p);
+	    coup_ordinateur(a,p);
+	    couleur = NOIR;
+	}
+	/*ia_aleatoire(p);*/
+	/* while(couleur == BLANC)
+	   {
+	   printf("\nBLANC\n");
+	   scanf("%c %d",&y,&x);
+	   if(coup_valide(p,x-1,y-97,BLANC))
+	   {
+	   points = capture(p,x-1,y-97,BLANC);
+	   printf("%d\n",points);
+	   plateau_afficher(p);
+	   couleur = NOIR;
+	   }
+	   else
+	   {
+	   viderBuffer();
+	   fprintf(stdout,"Coup invalide\n");
+	   }
+	   }
 	viderBuffer();*/
     }
     gagnant(p);

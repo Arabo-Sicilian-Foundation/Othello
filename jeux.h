@@ -18,4 +18,5 @@ int coup_valide(plateau p, int x, int y, int couleur);
 /*Calcule les points et donne le vainqueur à la fin de la partie*/
 void gagnant(plateau p);
 
+arbre evaluation_plateau(plateau p,int x, int y, int couleur);
 #endif

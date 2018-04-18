@@ -298,5 +298,23 @@ void gagnant(plateau p)
 	fprintf(stdout,"Égalité !\n");
 }
 
+arbre evaluation_plateau(plateau p, int x, int y, int couleur)
+{
+    arbre a = arbre_vide();
+    plateau tmp;
+    int point;
+
+    /* On crée un plateau temporaire */
+    plateau_recopie(p,tmp);
+
+    /* On calcule les points que rapporte cette position */
+    point = capture(tmp,x,y,BLANC);
+
+    /* On crée et renvoie l'arbre avec sa valeur */
+    a = creer_arbre_position(tmp);
+    a->valeur_plateau = point;
+
+    return a;
+}
 
 #endif

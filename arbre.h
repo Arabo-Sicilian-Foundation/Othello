@@ -6,6 +6,7 @@
 typedef struct noeud
 {
     plateau position;
+    int valeur_plateau;
     int nb_fils;
     struct noeud **tab_fils;
 } noeud;
