@@ -21,7 +21,8 @@ int main()
     int couleur;
     int points;
     arbre a = arbre_vide();
-    
+    int pf = 0;
+    int *prof = &pf;
     /*Crée un plateau et l'initialise à la configuration de base*/
     plateau_init(p);
     jeux_init(p);
@@ -58,8 +59,10 @@ int main()
 	if(position_gagnante(p,BLANC))
 	{
 	    printf("\nBLANC\n");
-	    a = ia_niveau1(p);
+	    a = ia_niveau1(p,prof);
 	    coup_ordinateur(a,p);
+	    free(a);
+	    plateau_afficher(p);
 	    couleur = NOIR;
 	}
 	/*ia_aleatoire(p);*/

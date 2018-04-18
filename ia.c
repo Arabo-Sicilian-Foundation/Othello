@@ -20,53 +20,101 @@ void ia_aleatoire(plateau p)
     capture(p,x,y,BLANC);
 }
 
-arbre ia_niveau1(plateau p)
+arbre ia_niveau1(plateau p, int *prof)
 {
-    arbre a = creer_arbre_position(p);
+    arbre a = arbre_vide();
     plateau tmp;
     int i,j,no_fils=0;
+    int couleur;
+    
+    a = creer_arbre_position(p);
+    if(*prof <= PROF)
+    {
+	/* On crée un plateau temporaire tmp pour ne pas modifier p */
+	plateau_recopie(p,tmp);
 
-    /* On crée un plateau temporaire tmp pour ne pas modifier p */
-    plateau_recopie(p,tmp);
-
-    /* On crée un fils pour chaque coup possible */
-    for(i=0;i<8;i++)
-	for(j=0;j<8;j++)
-	{
-	    if(coup_valide(tmp,i,j,BLANC))
+	/* On change la couleur selon si c'est le tour de l'ia ou du joueur */
+	if(*prof % 2 == 0)
+	    couleur = BLANC;
+	else
+	    couleur = NOIR;
+    
+	/* On crée un fils pour chaque coup possible */
+	for(i=0;i<8;i++)
+	    for(j=0;j<8;j++)
 	    {
-		inserer_fils(a,no_fils,evaluation_plateau(tmp,i,j,BLANC));
-		no_fils++;
+		if(coup_valide(tmp,i,j,couleur))
+		{
+		    inserer_fils(a,no_fils,evaluation_plateau(tmp,i,j,couleur,prof));
+		    /* On redescend d'un niveau quand toutes les possibilités ont été exploré */
+		    *prof -= 1;
+		    no_fils++;
+		}
+	    }
+	/* Affiche les fils et leurs valeurs */
+	/*for(i=0;i<a->nb_fils;i++)
+	{
+	    plateau_afficher(a->tab_fils[i]->position);
+	    printf("Valeur de la position: %d\n\n",a->tab_fils[i]->valeur_plateau);
+	    }*/
+    }
+    return a;
+}
+
+int valeur_arbre(arbre a, int prof)
+{
+    int valeur_max = 0;
+    int valeur_min = 100;
+    int i;
+
+    if(prof < PROF)
+    {
+	for(i=0;i<a->nb_fils;i++)
+	{
+	    a->tab_fils[i]->valeur_plateau = valeur_arbre(a->tab_fils[i],prof+1);
+	}
+    }
+
+    for(i=0;i<a->nb_fils;i++)
+    {	    
+	if(prof % 2 != 0)
+	{
+	    if(a->tab_fils[i]->valeur_plateau <= valeur_min)
+	    {
+		valeur_min = a->tab_fils[i]->valeur_plateau;
+	    }  
+	}
+	if(prof % 2 == 0)
+	{
+	    if(a->tab_fils[i]->valeur_plateau >= valeur_max)
+	    {
+		valeur_max = a->tab_fils[i]->valeur_plateau;
 	    }
 	}
-    /* Affiche les fils et leurs valeurs */
-    /*for(i=0;i<no_fils;i++)
-    {
-	plateau_afficher(a->tab_fils[i]->position);
-	printf("Valeur de la position: %d\n",a->tab_fils[i]->valeur_plateau);
-	}*/
-    return a;
+    }
+  
+    if(prof % 2 != 0)
+	return valeur_min;
+    else
+	return valeur_max;
+
 }
 
 void coup_ordinateur(arbre a, plateau p)
 {
-    int valeur_max = 0;
+    int prof = 0;
     int i;
-    arbre tmp = arbre_vide();
 
-    /* Parmis tous les fils de a, on choisit celui avec la plus grande valeur */
-    /* L'arbre temporaire tmp prend la valeur du fils avec la plus grande valeur */
-    
+    a->valeur_plateau = valeur_arbre(a,prof);
+
     for(i=0;i<a->nb_fils;i++)
-	if(a->tab_fils[i]->valeur_plateau >= valeur_max)
+    {
+	if(a->valeur_plateau <= a->tab_fils[i]->valeur_plateau)
 	{
-	    valeur_max = a->tab_fils[i]->valeur_plateau;
-	    tmp = a->tab_fils[i];
+	    plateau_recopie(a->tab_fils[i]->position,p);
 	}
-
-    /* On remplace p par le plateau rapportant le plus de points à l'IA */
-    plateau_recopie(tmp->position,p);
-    plateau_afficher(p);
+    }
 }
+
     
 #endif

@@ -298,22 +298,26 @@ void gagnant(plateau p)
 	fprintf(stdout,"Égalité !\n");
 }
 
-arbre evaluation_plateau(plateau p, int x, int y, int couleur)
+arbre evaluation_plateau(plateau p, int x, int y, int couleur, int *prof)
 {
     arbre a = arbre_vide();
     plateau tmp;
     int point;
 
+    *prof += 1;
+    
     /* On crée un plateau temporaire */
     plateau_recopie(p,tmp);
 
     /* On calcule les points que rapporte cette position */
-    point = capture(tmp,x,y,BLANC);
+    point = capture(tmp,x,y,couleur);
 
-    /* On crée et renvoie l'arbre avec sa valeur */
-    a = creer_arbre_position(tmp);
-    a->valeur_plateau = point;
-
+    /* Pour la situation créée, on calcule récursivement les possibilités de l'autre couleur */
+    
+    a = ia_niveau1(tmp,prof);
+    if(*prof > PROF)
+	a->valeur_plateau = point;
+      
     return a;
 }
 
