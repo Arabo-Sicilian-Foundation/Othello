@@ -25,7 +25,8 @@ int position_gagnante(plateau p, int couleur)
 void capture(plateau p, int x, int y, int couleur)
 {
     int i,j;
-
+    int points = 0;
+    
     if(p[x-1][y] != couleur)
 	for(i=x-1;i>0;i--)
 	{
@@ -34,7 +35,10 @@ void capture(plateau p, int x, int y, int couleur)
 	    if(p[i-1][y] == couleur && p[i][y] != couleur)
 	    {
 		for(;i<=x;i++)
+		{
 		    p[i][y] = couleur;
+		    points++;
+		}
 		break;
 	    }
 	}
@@ -47,7 +51,10 @@ void capture(plateau p, int x, int y, int couleur)
 	    if(p[i+1][y] == couleur && p[i][y] != couleur)
 	    {
 		for(;i>=x;i--)
+		{
 		    p[i][y] = couleur;
+		    points++;
+		}
 		break;
 	    }
 	}
@@ -60,7 +67,10 @@ void capture(plateau p, int x, int y, int couleur)
 	    if(p[x][i-1] == couleur && p[x][i] != couleur)
 	    {
 		for(;i<=y;i++)
+		{
 		    p[x][i] = couleur;
+		    points++;
+		}
 		break;
 	    }
 	}
@@ -86,7 +96,10 @@ void capture(plateau p, int x, int y, int couleur)
 	    if(p[i-1][j-1] == couleur && p[i][j] != couleur)
 	    {
 		for(;i<=x && j<=y;i++,j++)
+		{
 		    p[i][j] = couleur;
+		    points++;
+		}
 		break;
 	    }
 	}
@@ -99,7 +112,10 @@ void capture(plateau p, int x, int y, int couleur)
 	    if(p[i-1][j+1] == couleur && p[i][j] != couleur)
 	    {
 		for(;i<=x && j>=y;i++,j--)
+		{
 		    p[i][j] = couleur;
+		    points++;
+		}
 		break;
 	    }
 	}
@@ -112,7 +128,10 @@ void capture(plateau p, int x, int y, int couleur)
 	    if(p[i+1][j-1] == couleur && p[i][j] != couleur)
 	    {
 		for(;i>=x && j<=y;i--,j++)
+		{
 		    p[i][j] = couleur;
+		    points++;
+		}
 		break;
 	    }
 	}
@@ -125,10 +144,14 @@ void capture(plateau p, int x, int y, int couleur)
 	    if(p[i+1][j+1] == couleur && p[i][j] != couleur)
 	    {
 		for(;i>=x && j>=y;i--,j--)
+		{
 		    p[i][j] = couleur;
+		    points++;
+		}
 		break;
 	    }
 	}
+    return points;
 }
 
 int coup_valide(plateau p, int x, int y, int couleur)
