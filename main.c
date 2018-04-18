@@ -34,7 +34,7 @@ int main()
     {
 	/*Si les pions ont des positions valident*/
 	if(position_gagnante(p,NOIR))
-
+	{
 	    /*Le tour continue jusqu'à une position valide*/
 	    while(couleur == NOIR)
 	    {
@@ -55,7 +55,11 @@ int main()
 		    fprintf(stdout,"Coup invalide\n");
 		}
 	    }
-	viderBuffer();
+	    viderBuffer();
+	}
+	else
+	    couleur = BLANC;
+
 	if(position_gagnante(p,BLANC))
 	{
 	    printf("\nBLANC\n");
@@ -65,25 +69,8 @@ int main()
 	    plateau_afficher(p);
 	    couleur = NOIR;
 	}
-	/*ia_aleatoire(p);*/
-	/* while(couleur == BLANC)
-	   {
-	   printf("\nBLANC\n");
-	   scanf("%c %d",&y,&x);
-	   if(coup_valide(p,x-1,y-97,BLANC))
-	   {
-	   points = capture(p,x-1,y-97,BLANC);
-	   printf("%d\n",points);
-	   plateau_afficher(p);
-	   couleur = NOIR;
-	   }
-	   else
-	   {
-	   viderBuffer();
-	   fprintf(stdout,"Coup invalide\n");
-	   }
-	   }
-	viderBuffer();*/
+	else
+	    couleur = NOIR;
     }
     gagnant(p);
 

@@ -28,6 +28,7 @@ arbre ia_niveau1(plateau p, int *prof)
     int couleur;
     
     a = creer_arbre_position(p);
+
     if(*prof <= PROF)
     {
 	/* On crée un plateau temporaire tmp pour ne pas modifier p */
@@ -67,7 +68,9 @@ int valeur_arbre(arbre a, int prof)
     int valeur_min = 100;
     int i;
 
-    if(prof < PROF)
+    /* Si on pas aux feuilles, on avance dans l'arbre */
+    /* On calcule ainsi toutes les valeurs des noeuds en prenant la valeur maximale ou minimale de fils de chaque noeud */
+    if(prof <= PROF)
     {
 	for(i=0;i<a->nb_fils;i++)
 	{
@@ -76,7 +79,8 @@ int valeur_arbre(arbre a, int prof)
     }
 
     for(i=0;i<a->nb_fils;i++)
-    {	    
+    {
+	/* Si la profondeur est impaire, c'est au tour du joueur humain, on choisit donc la solution qui minimise ses gains */
 	if(prof % 2 != 0)
 	{
 	    if(a->tab_fils[i]->valeur_plateau <= valeur_min)
@@ -84,6 +88,7 @@ int valeur_arbre(arbre a, int prof)
 		valeur_min = a->tab_fils[i]->valeur_plateau;
 	    }  
 	}
+	/* Si la profondeur est impaire, c'est au tour de l'IA, on choisit donc la solution qui maximise ses gains */
 	if(prof % 2 == 0)
 	{
 	    if(a->tab_fils[i]->valeur_plateau >= valeur_max)
@@ -107,6 +112,7 @@ void coup_ordinateur(arbre a, plateau p)
 
     a->valeur_plateau = valeur_arbre(a,prof);
 
+    /* On choisi le coup rapportant le plus de points parmis tous les coups possibles */
     for(i=0;i<a->nb_fils;i++)
     {
 	if(a->valeur_plateau <= a->tab_fils[i]->valeur_plateau)

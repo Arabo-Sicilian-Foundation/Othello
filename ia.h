@@ -1,7 +1,7 @@
 #ifndef IA_H
 #define IA_H
 
-#define PROF 4
+#define PROF 5
 #include "jeux.h"
 
 /* Joue de manière aléatoire */
