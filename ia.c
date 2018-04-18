@@ -4,23 +4,18 @@
 #include "ia.h"
 #include <time.h>
 
-int ia_aleatoire(plateau p)
+void ia_aleatoire(plateau p)
 {
 	int x = rand() % 8;
 	int y = rand() % 8;
 
-	if(!position_gagnante(p,NOIR))
-	{
-		return 0;
-	}
-
-	while(!coup_valide(p,x,y,NOIR))
+	while(!coup_valide(p,x,y,BLANC))
 	{
 		x = rand() % 8;
 		y = rand() % 8;
 	}
 
-	capture(p,x,y,NOIR);
+	capture(p,x,y,BLANC);
 }
 
 #endif

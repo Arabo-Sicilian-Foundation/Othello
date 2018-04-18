@@ -2,6 +2,7 @@
 #define MAIN_C
 
 #include "jeux.h"
+#include "ia.h"
 
 /*Vide l'entrée standard stdin*/
 void viderBuffer()
@@ -24,7 +25,7 @@ int main()
     /*Crée un plateau et l'initialise à la configuration de base*/
     plateau_init(p);
     jeux_init(p);
-    
+
     couleur = NOIR;
 
     /*Tant qu'au moins un des joueurs peut jouer*/
@@ -32,7 +33,7 @@ int main()
     {
 	/*Si les pions ont des positions valident*/
 	if(position_gagnante(p,NOIR))
-	    
+
 	    /*Le tour continue jusqu'à une position valide*/
 	    while(couleur == NOIR)
 	    {
@@ -55,27 +56,28 @@ int main()
 	    }
 	viderBuffer();
 	if(position_gagnante(p,BLANC))
-	    while(couleur == BLANC)
+		ia_aleatoire(p);
+	   /* while(couleur == BLANC)
 	    {
-		printf("\nBLANC\n");
-		scanf("%c %d",&y,&x);
-		if(coup_valide(p,x-1,y-97,BLANC))
-		{
-		    points = capture(p,x-1,y-97,BLANC);
-		    printf("%d\n",points);
-		    plateau_afficher(p);
-		    couleur = NOIR;
+			printf("\nBLANC\n");
+			scanf("%c %d",&y,&x);
+			if(coup_valide(p,x-1,y-97,BLANC))
+			{*/
+			    points = capture(p,x-1,y-97,BLANC);
+			    printf("%d\n",points);
+			    plateau_afficher(p);
+			    couleur = NOIR;
+			/*}
+			else
+			{
+			    viderBuffer();
+			    fprintf(stdout,"Coup invalide\n");
+			}
 		}
-		else
-		{
-		    viderBuffer();
-		    fprintf(stdout,"Coup invalide\n");
-		}
-	    }
-	viderBuffer();
+	viderBuffer();*/
     }
     gagnant(p);
-    
+
     exit(0);
 }
 
