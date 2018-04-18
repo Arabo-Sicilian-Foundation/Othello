@@ -18,6 +18,7 @@ int main()
     int x;
     char y = 1;
     int couleur;
+    int points;
 
     plateau_init(p);
     jeux_init(p);
@@ -32,7 +33,8 @@ int main()
 		scanf("%c %d",&y,&x);
 		if(coup_valide(p,x-1,y-97,NOIR))
 		{
-		    capture(p,x-1,y-97,NOIR);
+		    points = capture(p,x-1,y-97,NOIR);
+		    printf("%d\n",points);
 		    plateau_afficher(p);
 		    couleur = BLANC;
 		}
@@ -50,7 +52,8 @@ int main()
 		scanf("%c %d",&y,&x);
 		if(coup_valide(p,x-1,y-97,BLANC))
 		{
-		    capture(p,x-1,y-97,BLANC);
+		    points = capture(p,x-1,y-97,BLANC);
+		    printf("%d\n",points);
 		    plateau_afficher(p);
 		    couleur = NOIR;
 		}

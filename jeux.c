@@ -22,10 +22,12 @@ int position_gagnante(plateau p, int couleur)
 		return 1;
     return 0;
 }  
-void capture(plateau p, int x, int y, int couleur)
+int capture(plateau p, int x, int y, int couleur)
 {
     int i,j;
-    int points = 0;
+    int points = 1;
+
+    p[x][y] = couleur;
     
     if(p[x-1][y] != couleur)
 	for(i=x-1;i>0;i--)
@@ -34,7 +36,7 @@ void capture(plateau p, int x, int y, int couleur)
 		break;
 	    if(p[i-1][y] == couleur && p[i][y] != couleur)
 	    {
-		for(;i<=x;i++)
+		for(;i<x;i++)
 		{
 		    p[i][y] = couleur;
 		    points++;
@@ -50,7 +52,7 @@ void capture(plateau p, int x, int y, int couleur)
 		break;
 	    if(p[i+1][y] == couleur && p[i][y] != couleur)
 	    {
-		for(;i>=x;i--)
+		for(;i>x;i--)
 		{
 		    p[i][y] = couleur;
 		    points++;
@@ -66,7 +68,7 @@ void capture(plateau p, int x, int y, int couleur)
 		break;
 	    if(p[x][i-1] == couleur && p[x][i] != couleur)
 	    {
-		for(;i<=y;i++)
+		for(;i<y;i++)
 		{
 		    p[x][i] = couleur;
 		    points++;
@@ -82,8 +84,11 @@ void capture(plateau p, int x, int y, int couleur)
 		break;
 	    if(p[x][i+1] == couleur && p[x][i] != couleur)
 	    {
-		for(;i>=y;i--)
+		for(;i>y;i--)
+		{
 		    p[x][i] = couleur;
+		    points++;
+		}
 		break;
 	    }
 	}
@@ -95,7 +100,7 @@ void capture(plateau p, int x, int y, int couleur)
 		break;
 	    if(p[i-1][j-1] == couleur && p[i][j] != couleur)
 	    {
-		for(;i<=x && j<=y;i++,j++)
+		for(;i<x && j<y;i++,j++)
 		{
 		    p[i][j] = couleur;
 		    points++;
@@ -111,7 +116,7 @@ void capture(plateau p, int x, int y, int couleur)
 		break;
 	    if(p[i-1][j+1] == couleur && p[i][j] != couleur)
 	    {
-		for(;i<=x && j>=y;i++,j--)
+		for(;i<x && j>y;i++,j--)
 		{
 		    p[i][j] = couleur;
 		    points++;
@@ -127,7 +132,7 @@ void capture(plateau p, int x, int y, int couleur)
 		break;
 	    if(p[i+1][j-1] == couleur && p[i][j] != couleur)
 	    {
-		for(;i>=x && j<=y;i--,j++)
+		for(;i>x && j<y;i--,j++)
 		{
 		    p[i][j] = couleur;
 		    points++;
@@ -143,7 +148,7 @@ void capture(plateau p, int x, int y, int couleur)
 		break;
 	    if(p[i+1][j+1] == couleur && p[i][j] != couleur)
 	    {
-		for(;i>=x && j>=y;i--,j--)
+		for(;i>x && j>y;i--,j--)
 		{
 		    p[i][j] = couleur;
 		    points++;
