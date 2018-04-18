@@ -24,7 +24,7 @@ int position_gagnante(plateau p, int couleur)
 	    if(coup_valide(p,i,j,couleur))
 		return 1;
     return 0;
-}  
+}
 int capture(plateau p, int x, int y, int couleur)
 {
     int i,j;
@@ -34,7 +34,7 @@ int capture(plateau p, int x, int y, int couleur)
     p[x][y] = couleur;
 
     /*Dans chaque cas, on parcours jusqu'à trouver un pion de la même couleur encadrant une suite de pions de l'autre couleur et on capture les pions encadrés*/
-    
+
 /*Quand cela est possible, on capture les pions : */
     /*au-dessus*/
     if(p[x-1][y] != couleur)
@@ -298,5 +298,5 @@ void gagnant(plateau p)
 	fprintf(stdout,"Égalité !\n");
 }
 
-	
+
 #endif
