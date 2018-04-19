@@ -3,6 +3,7 @@
 
 #include "ia.h"
 #include <time.h>
+#include <math.h>
 
 void ia_aleatoire(plateau p)
 {
@@ -12,8 +13,8 @@ void ia_aleatoire(plateau p)
     /* On retente un coup aléatoire tant qu'il n'est pas valide */
     while(!coup_valide(p,x,y,BLANC))
     {
-	x = rand() % 8;
-	y = rand() % 8;
+		x = rand() % 8;
+		y = rand() % 8;
     }
 
     /* puis on capture les pions une fois qu'on est bon */
@@ -26,7 +27,7 @@ arbre ia_niveau1(plateau p, int *prof)
     plateau tmp;
     int i,j,no_fils=0;
     int couleur;
-    
+
     a = creer_arbre_position(p);
 
     if(*prof <= PROF)
@@ -39,7 +40,7 @@ arbre ia_niveau1(plateau p, int *prof)
 	    couleur = BLANC;
 	else
 	    couleur = NOIR;
-    
+
 	/* On crée un fils pour chaque coup possible */
 	for(i=0;i<8;i++)
 	    for(j=0;j<8;j++)
@@ -68,7 +69,7 @@ int valeur_arbre(arbre a, int prof)
     int valeur_min = 100;
     int i;
 
-    /* Si on pas aux feuilles, on avance dans l'arbre */
+    /* Si on est pas aux feuilles, on avance dans l'arbre */
     /* On calcule ainsi toutes les valeurs des noeuds en prenant la valeur maximale ou minimale de fils de chaque noeud */
     if(prof <= PROF)
     {
@@ -86,9 +87,9 @@ int valeur_arbre(arbre a, int prof)
 	    if(a->tab_fils[i]->valeur_plateau <= valeur_min)
 	    {
 		valeur_min = a->tab_fils[i]->valeur_plateau;
-	    }  
+	    }
 	}
-	/* Si la profondeur est impaire, c'est au tour de l'IA, on choisit donc la solution qui maximise ses gains */
+	/* Si la profondeur est paire, c'est au tour de l'IA, on choisit donc la solution qui maximise ses gains */
 	if(prof % 2 == 0)
 	{
 	    if(a->tab_fils[i]->valeur_plateau >= valeur_max)
@@ -97,7 +98,7 @@ int valeur_arbre(arbre a, int prof)
 	    }
 	}
     }
-  
+
     if(prof % 2 != 0)
 	return valeur_min;
     else
@@ -110,7 +111,8 @@ void coup_ordinateur(arbre a, plateau p)
     int prof = 0;
     int i;
 
-    a->valeur_plateau = valeur_arbre(a,prof);
+    /*a->valeur_plateau = valeur_arbre(a,prof);*/
+	a->valeur_plateau = alphabeta(a,prof,-100,100);
 
     /* On choisi le coup rapportant le plus de points parmis tous les coups possibles */
     for(i=0;i<a->nb_fils;i++)
@@ -122,5 +124,43 @@ void coup_ordinateur(arbre a, plateau p)
     }
 }
 
-    
+int alphabeta(arbre a, int prof, int alpha, int beta)
+{
+	int i;
+	int betamin;
+	int alphamax;
+	/* si on est pas sur une feuille */
+	if(prof <= PROF)
+    {
+		for(i=0;i<a->nb_fils;i++)
+		{
+			a->tab_fils[i]->valeur_plateau = alphabeta(a->tab_fils[i],prof+1,alpha,beta);
+		}
+    }
+		/* si on est sur un noeud min */
+	if(prof % 2 != 0)
+	{
+		for(i=0;i < a->nb_fils; i++)
+		{
+			betamin = alphabeta(a,i,alpha,beta);
+			if(betamin < beta)
+				beta = betamin;
+			if(alpha >= beta)
+				return alpha;
+		}
+		return beta;
+	}
+		/* si on est sur un noeud max */
+	else
+	{
+		for(i=0;i < a->nb_fils; i++)
+		{
+			alphamax = alphabeta(a,i,alpha,beta);
+			if(alphamax >= beta)
+				return beta;
+		}
+		return alpha;
+	}
+}
+
 #endif

@@ -7,6 +7,11 @@ arbre creer_arbre_position(plateau p)
 {
     int i,j;
     arbre a = (arbre)malloc(sizeof(noeud));
+	if(a == NULL)
+	{
+		fprintf(stderr,"Erreur d'allocation mémoire\n");
+		exit(EXIT_FAILURE);
+	}
 
     /*On copie p dans l'abre*/
     for(i=0;i<8;i++)

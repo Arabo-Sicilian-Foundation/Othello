@@ -14,4 +14,10 @@ arbre ia_niveau1(plateau p, int *prof);
 void coup_ordinateur(arbre a, plateau p);
 
 int valeur_arbre(arbre a, int prof);
+
+/* minimax avec l'algorithme alpha-beta	 */
+/* source :
+http://lig-membres.imag.fr/pernet/Enseignements/L3METI_ProgOO/MinMaxAlphaBeta.pdf */
+int alphabeta(arbre a, int prof, int alpha, int beta);
+
 #endif
