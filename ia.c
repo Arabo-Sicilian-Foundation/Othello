@@ -130,37 +130,34 @@ int alphabeta(arbre a, int prof, int alpha, int beta)
 	int betamin;
 	int alphamax;
 	/* si on est pas sur une feuille */
-	if(prof <= PROF)
-    {
-		for(i=0;i<a->nb_fils;i++)
-		{
-			a->tab_fils[i]->valeur_plateau = alphabeta(a->tab_fils[i],prof+1,alpha,beta);
-		}
-    }
-		/* si on est sur un noeud min */
+	if(prof == PROF)
+	  {
+	    return a->valeur_plateau;
+	  }
+	/* si on est sur un noeud min */
 	if(prof % 2 != 0)
-	{
-		for(i=0;i < a->nb_fils; i++)
-		{
-			betamin = alphabeta(a,i,alpha,beta);
-			if(betamin < beta)
-				beta = betamin;
-			if(alpha >= beta)
-				return alpha;
-		}
-		return beta;
-	}
-		/* si on est sur un noeud max */
+	  {
+	    for(i=0;i < a->nb_fils; i++)
+	      {
+		betamin = alphabeta(a->tab_fils[i],prof+1,alpha,beta);
+		if(betamin < beta)
+		  beta = betamin;
+		if(alpha >= beta)
+		  return alpha;
+	      }
+	    return beta;
+	  }
+	/* si on est sur un noeud max */
 	else
-	{
-		for(i=0;i < a->nb_fils; i++)
-		{
-			alphamax = alphabeta(a,i,alpha,beta);
-			if(alphamax >= beta)
-				return beta;
-		}
-		return alpha;
-	}
+	  {
+	    for(i=0;i < a->nb_fils; i++)
+	      {
+		alphamax = alphabeta(a->tab_fils[i],prof+1,alpha,beta);
+		if(alphamax >= beta)
+		  return beta;
+	      }
+	    return alpha;
+	  }
 }
 
 #endif

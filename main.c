@@ -26,7 +26,7 @@ int main()
     /*Crée un plateau et l'initialise à la configuration de base*/
     plateau_init(p);
     jeux_init(p);
-	srand(time(NULL));
+    srand(time(NULL));
 
     couleur = NOIR;
 
