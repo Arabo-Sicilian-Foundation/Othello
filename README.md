@@ -32,7 +32,7 @@ Jeu d'Othello (reversi) avec une ia.
     `sudo apt-get install make`
   
   ### Dans le dossier du jeu :
-    $ make
+    `$ make`
     
     - Pour lancer le jeu, lancer :
     
