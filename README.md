@@ -33,7 +33,9 @@ Jeu d'Othello (reversi) avec une ia.
   
   ### Dans le dossier du jeu :
     
-  $ make
+  - compilation :
+  
+    `make`
     
   - Pour lancer le jeu, lancer :
     
