@@ -32,15 +32,16 @@ Jeu d'Othello (reversi) avec une ia.
     `sudo apt-get install make`
   
   ### Dans le dossier du jeu :
-    `make`
     
-    - Pour lancer le jeu, lancer :
+  $ make
     
-      `./reversi`
+  - Pour lancer le jeu, lancer :
+    
+    `./reversi`
       
-    - Options pour l'ia :
+  - Options pour l'ia :
       
-      soon
+    soon
       
 ## Sources
 - Documentation de la bibliothèque MLV-2.0.2 :
