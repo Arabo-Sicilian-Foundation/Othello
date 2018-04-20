@@ -44,4 +44,43 @@ void plateau_recopie(plateau p, plateau cp)
 	    cp[i][j] = p[i][j];
 }
 
+/* Les coins et les bords sont des emplacements avantageux, placer un pion dans un angle ou sur un bord est plus intéressant */
+
+int est_coin_plateau(int x, int y)
+{
+    /* Coin haut gauche */
+    if(x == 0 && y == 0)
+	return 1;
+    /* Coin haut droite */
+    if(x == 0 && y == 7)
+	return 1;
+    /* Coin bas gauche */
+    if(x == 7 && y == 0)
+	return 1;
+    /* Coin bas droite */
+    if(x == 7 && y == 7)
+	return 1;
+
+    return 0;
+}
+
+int est_bord_plateau(int x, int y)
+{
+    /* Bord supérieur */
+    if(x == 0 && y >= 1 && y <= 7)
+	return 1;
+    /* Bord inférieur */
+    if(x == 7 && y >= 1 && y <= 7)
+	return 1;
+    /* Bord gauche */
+    if(y == 0 && x >= 1 && y <= 7)
+	return 1;
+    /* Bord droite */
+    if(y == 7 && x >= 1 && y <= 7)
+	return 1;
+
+    return 0;
+}
+
+
 #endif

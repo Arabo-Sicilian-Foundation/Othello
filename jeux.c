@@ -47,7 +47,18 @@ int capture(plateau p, int x, int y, int couleur)
 		for(;i<x;i++)
 		{
 		    p[i][y] = couleur;
-		    points++;
+
+		    /* Les bords et les angles sont des emplacement stratégiques à privilégier */
+		    /* Les angles sont les emplacements les plus intéressants */
+		    if(est_coin_plateau(i,y))
+			points += 3;
+		    else
+		    {
+			if(est_bord_plateau(i,y))
+			    points += 2;
+			else
+			    points ++;
+		    }
 		}
 		break;
 	    }
@@ -64,7 +75,15 @@ int capture(plateau p, int x, int y, int couleur)
 		for(;i>x;i--)
 		{
 		    p[i][y] = couleur;
-		    points++;
+		    if(est_coin_plateau(i,y))
+			points += 3;
+		    else
+		    {
+			if(est_bord_plateau(i,y))
+			    points += 2;
+			else
+			    points ++;
+		    }
 		}
 		break;
 	    }
@@ -81,7 +100,15 @@ int capture(plateau p, int x, int y, int couleur)
 		for(;i<y;i++)
 		{
 		    p[x][i] = couleur;
-		    points++;
+		    if(est_coin_plateau(i,y))
+			points += 3;
+		    else
+		    {
+			if(est_bord_plateau(i,y))
+			    points += 2;
+			else
+			    points ++;
+		    }
 		}
 		break;
 	    }
@@ -98,7 +125,15 @@ int capture(plateau p, int x, int y, int couleur)
 		for(;i>y;i--)
 		{
 		    p[x][i] = couleur;
-		    points++;
+		    if(est_coin_plateau(i,y))
+			points += 3;
+		    else
+		    {
+			if(est_bord_plateau(i,y))
+			    points += 2;
+			else
+			    points ++;
+		    }
 		}
 		break;
 	    }
@@ -115,7 +150,15 @@ int capture(plateau p, int x, int y, int couleur)
 		for(;i<x && j<y;i++,j++)
 		{
 		    p[i][j] = couleur;
-		    points++;
+		    if(est_coin_plateau(i,y))
+			points += 3;
+		    else
+		    {
+			if(est_bord_plateau(i,y))
+			    points += 2;
+			else
+			    points ++;
+		    }
 		}
 		break;
 	    }
@@ -132,7 +175,15 @@ int capture(plateau p, int x, int y, int couleur)
 		for(;i<x && j>y;i++,j--)
 		{
 		    p[i][j] = couleur;
-		    points++;
+		    if(est_coin_plateau(i,y))
+			points += 3;
+		    else
+		    {
+			if(est_bord_plateau(i,y))
+			    points += 2;
+			else
+			    points ++;
+		    }
 		}
 		break;
 	    }
@@ -149,7 +200,15 @@ int capture(plateau p, int x, int y, int couleur)
 		for(;i>x && j<y;i--,j++)
 		{
 		    p[i][j] = couleur;
-		    points++;
+		    if(est_coin_plateau(i,y))
+			points += 3;
+		    else
+		    {
+			if(est_bord_plateau(i,y))
+			    points += 2;
+			else
+			    points ++;
+		    }
 		}
 		break;
 	    }
@@ -166,7 +225,15 @@ int capture(plateau p, int x, int y, int couleur)
 		for(;i>x && j>y;i--,j--)
 		{
 		    p[i][j] = couleur;
-		    points++;
+		    if(est_coin_plateau(i,y))
+			points += 3;
+		    else
+		    {
+			if(est_bord_plateau(i,y))
+			    points += 2;
+			else
+			    points ++;
+		    }
 		}
 		break;
 	    }
