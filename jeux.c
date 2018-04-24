@@ -372,7 +372,7 @@ arbre evaluation_plateau(plateau p, int x, int y, int couleur, int *prof)
     int point;
 
     *prof += 1;
-    
+
     /* On crée un plateau temporaire */
     plateau_recopie(p,tmp);
 
@@ -380,11 +380,10 @@ arbre evaluation_plateau(plateau p, int x, int y, int couleur, int *prof)
     point = capture(tmp,x,y,couleur);
 
     /* Pour la situation créée, on calcule récursivement les possibilités de l'autre couleur */
-    
-    a = ia_niveau1(tmp,prof);
-    if(*prof > PROF)
-	a->valeur_plateau = point;
-      
+
+    a = ia_arbre(tmp,prof);
+    a->valeur_plateau = point;
+
     return a;
 }
 
