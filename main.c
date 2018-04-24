@@ -2,6 +2,7 @@
 #define MAIN_C
 
 #include "ia.h"
+#include <MLV/MLV_all.h>
 
 /*Vide l'entrée standard stdin*/
 void viderBuffer()
@@ -15,9 +16,11 @@ void viderBuffer()
 
 int main()
 {
+	MLV_create_window("Reversi","Reversi",400,400);
+
     plateau p;
-    int x;
-    char y = 1;
+    int x = 0;
+    int y = 0;
     int couleur;
     int points;
     arbre a = arbre_vide();
@@ -32,30 +35,28 @@ int main()
     /*Tant qu'au moins un des joueurs peut jouer*/
     while(position_gagnante(p,NOIR) || position_gagnante(p,BLANC))
     {
-	/*Si les pions ont des positions valident*/
-	if(position_gagnante(p,NOIR))
-	{
-	    /*Le tour continue jusqu'à une position valide*/
-	    while(couleur == NOIR)
-	    {
-		printf("\nNOIR\n");
-		scanf("%c %d",&y,&x);
-		/*Si le coup est valide, on capture les pions et c'est au joueur suivant de jouer*/
-		if(coup_valide(p,x-1,y-97,NOIR))
+		/*Si les pions ont des positions valident*/
+		if(position_gagnante(p,NOIR))
 		{
-		    points = capture(p,x-1,y-97,NOIR);
-		    printf("%d\n",points);
-		    plateau_afficher(p);
-		    couleur = BLANC;
-		}
-		/*Sinon le joueur choisit une autre position*/
-		else
-		{
-		    viderBuffer();
-		    fprintf(stdout,"Coup invalide\n");
-		}
-	    }
-	    viderBuffer();
+		    /*Le tour continue jusqu'à une position valide*/
+		    while(couleur == NOIR)
+		    {
+				printf("\nNOIR\n");
+				
+				while(!coup_valide(p,x,y,NOIR))
+				{
+					MLV_wait_mouse(&x, &y);
+					x = x / 50;
+					y = y / 50;
+					printf("%d %d\n",x,y);
+				}
+				/*Si le coup est valide, on capture les pions et c'est au joueur suivant de jouer*/
+			    points = capture(p,x,y,NOIR);
+			    printf("%d\n",points);
+			    plateau_afficher(p);
+			    couleur = BLANC;
+	    	}
+		MLV_actualise_window();
 	}
 	else
 	    couleur = BLANC;
@@ -68,12 +69,14 @@ int main()
 	    free(a);
 	    plateau_afficher(p);
 	    couleur = NOIR;
+		MLV_actualise_window();
 	}
 	else
 	    couleur = NOIR;
     }
     gagnant(p);
 
+	MLV_free_window();
     exit(0);
 }
 
