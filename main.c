@@ -3,6 +3,7 @@
 
 #include "ia.h"
 
+
 /*Vide l'entrée standard stdin*/
 void viderBuffer()
 {
@@ -63,7 +64,8 @@ int main()
 	if(position_gagnante(p,BLANC))
 	{
 	    printf("\nBLANC\n");
-	    a = ia_niveau1(p,prof);
+	    a = ia_arbre(p,prof);
+		*prof = 0;
 	    coup_ordinateur(a,p);
 	    free(a);
 	    plateau_afficher(p);
