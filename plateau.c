@@ -23,24 +23,24 @@ void plateau_afficher(plateau p)
 		fprintf(stdout,"%d |",i+1);
 		for(j=0;j<8;j++)
 		{
-			MLV_draw_filled_rectangle(i*50,j*50,50,50,MLV_COLOR_DARK_GREEN);
-			MLV_draw_rectangle(i*50,j*50,50,50,MLV_COLOR_BLACK);
+			MLV_draw_filled_rectangle(j*50,i*50,50,50,MLV_COLOR_DARK_GREEN);
+			MLV_draw_rectangle(j*50,i*50,50,50,MLV_COLOR_BLACK);
 
 		    if(p[i][j] == VIDE)
 			{
 				fprintf(stdout," .");
-				MLV_draw_filled_rectangle(i*50,j*50,50,50,MLV_COLOR_DARK_GREEN);
-				MLV_draw_rectangle(i*50,j*50,50,50,MLV_COLOR_BLACK);
+				MLV_draw_filled_rectangle(j*50,i*50,50,50,MLV_COLOR_DARK_GREEN);
+				MLV_draw_rectangle(j*50,i*50,50,50,MLV_COLOR_BLACK);
 			}
 		    if(p[i][j] == NOIR)
 			{
 				fprintf(stdout," N");
-				MLV_draw_filled_circle(i*50+25,j*50+25,20,MLV_COLOR_BLACK);
+				MLV_draw_filled_circle(j*50+25,i*50+25,20,MLV_COLOR_BLACK);
 			}
 			if(p[i][j] == BLANC)
 			{
 				fprintf(stdout," B");
-				MLV_draw_filled_circle(i*50+25,j*50+25,20,MLV_COLOR_WHITE);
+				MLV_draw_filled_circle(j*50+25,i*50+25,20,MLV_COLOR_WHITE);
 			}
 		}
 		fprintf(stdout,"|\n");

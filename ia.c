@@ -63,7 +63,6 @@ arbre ia_arbre(plateau p, int *prof)
 		}
 	}
     }
-
 	/*prof_global = *prof;*/
     return a;
 }
@@ -76,14 +75,15 @@ int valeur_arbre(arbre a, int prof)
 
     /* Si on est pas aux feuilles, on avance dans l'arbre */
     /* On calcule ainsi toutes les valeurs des noeuds en prenant la valeur maximale ou minimale de fils de chaque noeud */
-    if(prof <= prof_max)
+    if(prof <= prof_max && a->nb_fils > 0)
     {
 	for(i=0;i<a->nb_fils;i++)
 	{
 	    a->tab_fils[i]->valeur_plateau = valeur_arbre(a->tab_fils[i],prof+1);
 	}
     }
-
+	if(a->nb_fils > 0)
+	{
     for(i=0;i<a->nb_fils;i++)
     {
 	/* Si la profondeur est impaire, c'est au tour du joueur humain, on choisit donc la solution qui minimise ses gains */
@@ -104,6 +104,7 @@ int valeur_arbre(arbre a, int prof)
 	    }
 	}
     }
+	}
 
     if(prof % 2 != 0)
 	return valeur_min;
@@ -119,7 +120,7 @@ void coup_ordinateur(arbre a, plateau p)
 
     /*a->valeur_plateau = valeur_arbre(a,prof);*/
 	a->valeur_plateau = alphabeta(a,prof,-100,100);
-
+	/*a->valeur_plateau = valeur_arbre(a,prof);*/
     /* On choisi le coup rapportant le plus de points parmis tous les coups possibles */
     for(i=0;i<a->nb_fils;i++)
     {
@@ -135,12 +136,15 @@ int alphabeta(arbre a, int prof, int alpha, int beta)
 	int i;
 	int betamin;
 	int alphamax;
-	/* si on est pas sur une feuille */
+
+	/* si on est sur une feuille */
 	if(prof == prof_max)
 	  {
 	    return a->valeur_plateau;
 	  }
 	/* si on est sur un noeud min */
+	if(a->nb_fils > 0)
+	{
 	if(prof % 2 != 0)
 	  {
 	    for(i=0;i < a->nb_fils; i++)
@@ -164,6 +168,14 @@ int alphabeta(arbre a, int prof, int alpha, int beta)
 	      }
 	    return alpha;
 	  }
+  	}
+	else
+	{
+		if(prof % 2 != 0)
+			return beta;
+		else
+			return alpha;
+	}
 }
 
 #endif

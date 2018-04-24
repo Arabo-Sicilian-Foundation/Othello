@@ -23,7 +23,6 @@ int main()
     int x = 0;
     int y = 0;
     int couleur;
-    int points;
     arbre a = arbre_vide();
     int pf = 0;
     int *prof = &pf;
@@ -43,17 +42,16 @@ int main()
 		    while(couleur == NOIR)
 		    {
 				printf("\nNOIR\n");
-				
+
 				while(!coup_valide(p,x,y,NOIR))
 				{
-					MLV_wait_mouse(&x, &y);
+					MLV_wait_mouse(&y, &x);
 					x = x / 50;
 					y = y / 50;
 					printf("%d %d\n",x,y);
 				}
 				/*Si le coup est valide, on capture les pions et c'est au joueur suivant de jouer*/
-			    points = capture(p,x,y,NOIR);
-			    printf("%d\n",points);
+			    capture(p,x,y,NOIR);
 			    plateau_afficher(p);
 			    couleur = BLANC;
 	    	}
