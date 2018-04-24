@@ -138,7 +138,7 @@ int alphabeta(arbre a, int prof, int alpha, int beta)
 	int alphamax;
 
 	/* si on est sur une feuille */
-	if(prof == prof_max)
+	if(a->nb_fils == 0)
 	  {
 	    return a->valeur_plateau;
 	  }
