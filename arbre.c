@@ -28,7 +28,12 @@ void inserer_fils(arbre a,int no_fils,arbre fils)
 {
     a->nb_fils++;
     a->tab_fils = (arbre *)realloc(a->tab_fils,a->nb_fils*sizeof(arbre));
-    a->tab_fils[no_fils] = fils;
+	if(a->tab_fils == NULL)
+	{
+		fprintf(stderr,"Erreur d'allocation mémoire.\n");
+		exit(EXIT_FAILURE);
+	}
+	a->tab_fils[no_fils] = fils;
 }
 
 arbre arbre_vide()
