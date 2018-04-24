@@ -2,6 +2,7 @@
 #define PLATEAU_C
 
 #include "plateau.h"
+#include <MLV/MLV_all.h>
 
 void plateau_init(plateau p)
 {
@@ -19,20 +20,35 @@ void plateau_afficher(plateau p)
     fprintf(stdout,"   ---------------- \n");
     for(i=0;i<8;i++)
     {
-	fprintf(stdout,"%d |",i+1);
-	for(j=0;j<8;j++)
-	{
-	    if(p[i][j] == VIDE)
-		fprintf(stdout," .");
-	    if(p[i][j] == NOIR)
-		fprintf(stdout," N");
-	    if(p[i][j] == BLANC)
-		fprintf(stdout," B");
-	}
-	fprintf(stdout,"|\n");
+		fprintf(stdout,"%d |",i+1);
+		for(j=0;j<8;j++)
+		{
+			MLV_draw_filled_rectangle(i*50,j*50,50,50,MLV_COLOR_DARK_GREEN);
+			MLV_draw_rectangle(i*50,j*50,50,50,MLV_COLOR_BLACK);
+
+		    if(p[i][j] == VIDE)
+			{
+				fprintf(stdout," .");
+				MLV_draw_filled_rectangle(i*50,j*50,50,50,MLV_COLOR_DARK_GREEN);
+				MLV_draw_rectangle(i*50,j*50,50,50,MLV_COLOR_BLACK);
+			}
+		    if(p[i][j] == NOIR)
+			{
+				fprintf(stdout," N");
+				MLV_draw_filled_circle(i*50+25,j*50+25,20,MLV_COLOR_BLACK);
+			}
+			if(p[i][j] == BLANC)
+			{
+				fprintf(stdout," B");
+				MLV_draw_filled_circle(i*50+25,j*50+25,20,MLV_COLOR_WHITE);
+			}
+		}
+		fprintf(stdout,"|\n");
     }
     fprintf(stdout,"   ---------------- \n");
     fprintf(stdout,"    A B C D E F G H \n");
+
+	MLV_actualise_window();
 }
 
 void plateau_recopie(plateau p, plateau cp)
