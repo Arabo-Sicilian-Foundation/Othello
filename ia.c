@@ -5,6 +5,10 @@
 #include <time.h>
 #include <math.h>
 
+int prof_global = 5;
+
+int prof_max = 0;
+
 void ia_aleatoire(plateau p)
 {
     int x = rand() % 8;
@@ -21,7 +25,7 @@ void ia_aleatoire(plateau p)
     capture(p,x,y,BLANC);
 }
 
-arbre ia_niveau1(plateau p, int *prof)
+arbre ia_arbre(plateau p, int *prof)
 {
     arbre a = arbre_vide();
     plateau tmp;
@@ -30,7 +34,7 @@ arbre ia_niveau1(plateau p, int *prof)
 
     a = creer_arbre_position(p);
 
-    if(*prof <= PROF)
+    if(*prof <= prof_global)
     {
 	/* On crée un plateau temporaire tmp pour ne pas modifier p */
 	plateau_recopie(p,tmp);
@@ -41,25 +45,26 @@ arbre ia_niveau1(plateau p, int *prof)
 	else
 	    couleur = NOIR;
 
-	/* On crée un fils pour chaque coup possible */
-	for(i=0;i<8;i++)
-	    for(j=0;j<8;j++)
-	    {
-		if(coup_valide(tmp,i,j,couleur))
-		{
-		    inserer_fils(a,no_fils,evaluation_plateau(tmp,i,j,couleur,prof));
-		    /* On redescend d'un niveau quand toutes les possibilités ont été exploré */
-		    *prof -= 1;
-		    no_fils++;
-		}
-	    }
-	/* Affiche les fils et leurs valeurs */
-	/*for(i=0;i<a->nb_fils;i++)
+	if(position_gagnante(tmp,couleur))
 	{
-	    plateau_afficher(a->tab_fils[i]->position);
-	    printf("Valeur de la position: %d\n\n",a->tab_fils[i]->valeur_plateau);
-	    }*/
+	    /* On crée un fils pour chaque coup possible */
+	    for(i=0;i<8;i++)
+		for(j=0;j<8;j++)
+		{
+		    if(coup_valide(tmp,i,j,couleur))
+		    {
+			inserer_fils(a,no_fils,evaluation_plateau(tmp,i,j,couleur,prof));
+			/* On redescend d'un niveau quand toutes les possibilités ont été exploré */
+			*prof -= 1;
+			if(*prof > prof_max)
+				prof_max = *prof;
+			no_fils++;
+		    }
+		}
+	}
     }
+
+	/*prof_global = *prof;*/
     return a;
 }
 
@@ -71,7 +76,7 @@ int valeur_arbre(arbre a, int prof)
 
     /* Si on est pas aux feuilles, on avance dans l'arbre */
     /* On calcule ainsi toutes les valeurs des noeuds en prenant la valeur maximale ou minimale de fils de chaque noeud */
-    if(prof <= PROF)
+    if(prof <= prof_max)
     {
 	for(i=0;i<a->nb_fils;i++)
 	{
@@ -89,6 +94,7 @@ int valeur_arbre(arbre a, int prof)
 		valeur_min = a->tab_fils[i]->valeur_plateau;
 	    }
 	}
+
 	/* Si la profondeur est paire, c'est au tour de l'IA, on choisit donc la solution qui maximise ses gains */
 	if(prof % 2 == 0)
 	{
@@ -130,7 +136,7 @@ int alphabeta(arbre a, int prof, int alpha, int beta)
 	int betamin;
 	int alphamax;
 	/* si on est pas sur une feuille */
-	if(prof == PROF)
+	if(prof == prof_max)
 	  {
 	    return a->valeur_plateau;
 	  }

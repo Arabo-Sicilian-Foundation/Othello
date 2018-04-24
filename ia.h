@@ -7,8 +7,8 @@
 /* Joue de manière aléatoire */
 void ia_aleatoire(plateau p);
 
-/* Crée une arbre des coups possibles et de leurs valeurs (profondeur 1)*/
-arbre ia_niveau1(plateau p, int *prof);
+/* Crée une arbre des coups possibles et de leurs valeurs */
+arbre ia_arbre(plateau p, int *prof);
 
 /* Joue le meilleur coup possible en fonction des données de l'arbre a */
 void coup_ordinateur(arbre a, plateau p);
