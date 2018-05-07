@@ -4,6 +4,9 @@
 #define PROF 5
 #include "jeux.h"
 
+/* Modifie la profondeur globale si l'utilisateur a utilisé l'option -p */
+void modifier_prof(int prof);
+
 /* Joue de manière aléatoire */
 void ia_aleatoire(plateau p);
 
@@ -11,7 +14,7 @@ void ia_aleatoire(plateau p);
 arbre ia_arbre(plateau p, int *prof);
 
 /* Joue le meilleur coup possible en fonction des données de l'arbre a */
-void coup_ordinateur(arbre a, plateau p);
+void coup_ordinateur(arbre a, plateau p, int niveau);
 
 int valeur_arbre(arbre a, int prof);
 

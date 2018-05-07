@@ -9,6 +9,11 @@ int prof_global = 5;
 
 int prof_max = 0;
 
+void modifier_prof(int prof)
+{
+    prof_global = prof;
+}
+
 void ia_aleatoire(plateau p)
 {
     int x = rand() % 8;
@@ -113,22 +118,26 @@ int valeur_arbre(arbre a, int prof)
 
 }
 
-void coup_ordinateur(arbre a, plateau p)
+void coup_ordinateur(arbre a, plateau p, int niveau)
 {
     int prof = 0;
     int i;
 
-    /*a->valeur_plateau = valeur_arbre(a,prof);*/
+    printf("prof globale %d\n",prof_global);
+    if(niveau == 1 || niveau == 2)	
+	a->valeur_plateau = valeur_arbre(a,prof);
+
+    if(niveau == 3)
 	a->valeur_plateau = alphabeta(a,prof,-100,100);
-	/*a->valeur_plateau = valeur_arbre(a,prof);*/
-    /* On choisi le coup rapportant le plus de points parmis tous les coups possibles */
-    for(i=0;i<a->nb_fils;i++)
-    {
-	if(a->valeur_plateau <= a->tab_fils[i]->valeur_plateau)
+
+	/* On choisi le coup rapportant le plus de points parmis tous les coups possibles */
+	for(i=0;i<a->nb_fils;i++)
 	{
-	    plateau_recopie(a->tab_fils[i]->position,p);
+	    if(a->valeur_plateau <= a->tab_fils[i]->valeur_plateau)
+	    {
+		plateau_recopie(a->tab_fils[i]->position,p);
+	    }
 	}
-    }
 }
 
 int alphabeta(arbre a, int prof, int alpha, int beta)
