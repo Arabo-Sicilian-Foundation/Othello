@@ -123,7 +123,6 @@ void coup_ordinateur(arbre a, plateau p, int niveau)
     int prof = 0;
     int i;
 
-    printf("prof globale %d\n",prof_global);
     if(niveau == 1 || niveau == 2)	
 	a->valeur_plateau = valeur_arbre(a,prof);
 
