@@ -7,11 +7,6 @@ Jeu d'Othello (reversi) avec une ia.
 
 1 à 2 joueurs.
 
-## Auteurs
-**MARNAT Lorenzo** : https://github.com/Sicilien
-
-**MOHAMED Hugo** : https://github.com/IhFisk
-
 ## Téléchargement
 `git clone https://github.com/Arabo-Sicilian-Foundation/Othello.git`
 
@@ -25,9 +20,8 @@ Jeu d'Othello (reversi) avec une ia.
   http://www-igm.univ-mlv.fr/~boussica/mlv/api/French/html/download.html
 
 ## Compilation
-  
+
   ### Prérequis :
-  - make
   
     `sudo apt-get install make`
   
@@ -35,15 +29,28 @@ Jeu d'Othello (reversi) avec une ia.
     
   - compilation :
   
-    `make`
+    ### Pour compiler le jeu uniquement :  
+
+    	make
+    ou
+	make reversi	
+
+    ### Pour compiler le jeu et le fichier latex :
+
+    	make all
+	
+## Lancement
     
-  - Pour lancer le jeu, lancer :
-    
-    `./reversi`
+    ./reversi -n x -p y
+
+    où :
       
-  - Options pour l'ia :
+      -n: option obligatoire, indique le niveau de l'IA souhaité
+      x: argument de l'option -n, valeur de 0 à 3
       
-    soon
+      -p: option non obligatoire, indique la profondeur de l'arbre pour les IA niveau 2 et 3
+      y: argument de l'option -n, valeur minimale de 1
+      	 la profondeur sera défini par défaut à 5 si l'option -p n'est pas utilisé
       
 ## Sources
 - Documentation de la bibliothèque MLV-2.0.2 :
